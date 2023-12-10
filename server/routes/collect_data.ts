@@ -55,7 +55,6 @@ async function saveToDatabase(
     table: string
 ): Promise<void> {
     const { prices } = chartData;
-    const len = prices.length;
 
     try {
 
