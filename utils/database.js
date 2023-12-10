@@ -6,6 +6,7 @@ dotenv.config();
 // connect to db
 export const pool = mysql.createPool({
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
@@ -14,6 +15,8 @@ export const pool = mysql.createPool({
 async function initDb() {
     try {
         const connection = await pool.getConnection();
+        
+        console.log("Connected");
 
         connection.execute(`
         CREATE TABLE IF NOT EXISTS vs_currency (
@@ -49,13 +52,13 @@ async function initDb() {
     } catch (error) {
         throw new Error(
             `Error while initializing the database:, ${
-                (error as Error).message
+                error.message
             }`
         );
     }
 }
 
-// creeate tables
+// create tables
 initDb();
 
 
